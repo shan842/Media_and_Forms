@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        
+
+        @media (max-width: 768px) {
+            .gallery-item {
+                flex: 1 1 calc(50% - 20px); /* Two items per row on tablets */
+                max-width: calc(50% - 20px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-item {
+                flex: 1 1 calc(100% - 20px); /* One item per row on small screens */
+                max-width: calc(100% - 20px);
+            }
+        }
+
+        .media-container {
+            padding: 20px;
+            text-align: center;
+        }
+
+        video, audio {
+            width: 100%;
+            max-width: 600px;
+            margin: 10px auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+   
+
+    <div class="media-container">
+        <h2>Video</h2>
+        <video autoplay loop muted>
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <h2>Audio</h2>
+        <audio autoplay loop>
+            <source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg">
+            <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+            Your browser does not support the audio tag.
+        </audio>
+    </div>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-Up and Sign-In</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 200vh;
+            background-color: #f4f4f4;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        form h2 {
+            margin-bottom: 15px;
+            font-size: 20px;
+            color: #333;
+        }
+        input[type="text"], input[type="email"], input[type="password"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        button {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Sign-Up and Sign-In</h1>
+
+<!-- Sign-Up Form -->
+<form id="signUpForm">
+    <h2>Sign-Up</h2>
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" name="firstName" required>
+
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" name="lastName" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+
+    <label for="confirmPassword">Confirm Password:</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" min="0" max="150" required>
+
+    <label for="gender">Gender:</label>
+    <select id="gender" name="gender" required>
+        <option value="">Select</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+    </select>
+
+    <label>
+        <input type="checkbox" id="terms" required> I agree to the terms and conditions
+    </label>
+
+    <button type="submit">Sign Up</button>
+    <p class="error" id="signUpError"></p>
+</form>
+
+<!-- Sign-In Form -->
+<form id="signInForm">
+    <h2>Sign-In</h2>
+    <label for="signInEmail">Email:</label>
+    <input type="email" id="signInEmail" name="signInEmail" required>
+
+    <label for="signInPassword">Password:</label>
+    <input type="password" id="signInPassword" name="signInPassword" required>
+
+    <button type="submit">Sign In</button>
+    <p class="error" id="signInError"></p>
+</form>
+
+<script>
+    // Sign-Up Validation
+    const signUpForm = document.getElementById('signUpForm');
+    const signUpError = document.getElementById('signUpError');
+
+    signUpForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName = document.getElementById('lastName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const age = parseInt(document.getElementById('age').value, 10);
+        const terms = document.getElementById('terms').checked;
+
+        let error = '';
+
+        if (firstName.length < 3) {
+            error = 'First name must be at least 3 characters long.';
+        } else if (lastName.length < 3) {
+            error = 'Last name must be at least 3 characters long.';
+        } else if (!email.includes('@') || email.length < 3) {
+            error = 'Enter a valid email address.';
+        } else if (password.length < 6) {
+            error = 'Password must be at least 6 characters long.';
+        } else if (password !== confirmPassword) {
+            error = 'Passwords do not match.';
+        } else if (isNaN(age) || age < 0 || age > 150) {
+            error = 'Age must be between 0 and 150.';
+        } else if (!terms) {
+            error = 'You must agree to the terms and conditions.';
+        }
+
+        if (error) {
+            signUpError.textContent = error;
+        } else {
+            signUpError.textContent = '';
+            alert('Sign-up successful!');
+            signUpForm.reset();
+        }
+    });
+
+    // Sign-In Validation
+    const signInForm = document.getElementById('signInForm');
+    const signInError = document.getElementById('signInError');
+
+    signInForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('signInEmail').value.trim();
+        const password = document.getElementById('signInPassword').value;
+
+        if (!email.includes('@') || email.length < 3) {
+            signInError.textContent = 'Enter a valid email address.';
+        } else if (password.length < 6) {
+            signInError.textContent = 'Password must be at least 6 characters long.';
+        } else {
+            signInError.textContent = '';
+            alert('Sign-in successful!');
+            signInForm.reset();
+        }
+    });
+</script>
+
+</body>
+</html>
